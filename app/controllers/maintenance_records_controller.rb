@@ -19,7 +19,8 @@ class MaintenanceRecordsController < ApplicationController
       render json: { errors: record.errors.full_messages }, status: :unprocessable_entity
     end
   end
-def update
+
+  def update
     if @maintenance_record.update(maintenance_record_params)
       render json: maintenance_json(@maintenance_record)
     else
@@ -31,3 +32,25 @@ def update
     @maintenance_record.destroy
     head :no_content
   end
+
+  private
+
+  def set_maintenance_record
+    @maintenance_record = MaintenanceRecord.includes(:equipment).find_by(id: params[:id])
+    return render json: { error: "Maintenance record not found" }, status: :not_found if @maintenance_record.nil?
+  end
+
+  def maintenance_record_params
+    params.require(:maintenance_record).permit(:description, :performed_at, :equipment_id)
+  end
+
+  def maintenance_json(record)
+    {
+      id: record.id,
+      description: record.description,
+      performed_at: record.performed_at,
+      equipment_id: record.equipment_id,
+      equipment_name: record.equipment&.name
+    }
+  end
+end

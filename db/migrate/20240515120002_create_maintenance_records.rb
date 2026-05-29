@@ -6,6 +6,6 @@ class CreateMaintenanceRecords < ActiveRecord::Migration[7.1]
       t.references :equipment, null: false, foreign_key: true
       t.timestamps
     end
-    add_index :maintenance_records, [:equipment_id, :performed_at]
+    add_index :maintenance_records, [ :equipment_id, :performed_at ]
   end
 end

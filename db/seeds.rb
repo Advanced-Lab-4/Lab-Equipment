@@ -1,9 +1,20 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+computing   = Category.create!(name: "Computing")
+optics      = Category.create!(name: "Optics")
+networking  = Category.create!(name: "Networking")
+electronics = Category.create!(name: "Electronics")
+
+laptop     = Equipment.create!(name: "ThinkPad X1",         serial_number: "LAP-001", status: "available",   category: computing)
+microscope = Equipment.create!(name: "Optical Microscope",  serial_number: "MIC-001", status: "in_use",      category: optics)
+router     = Equipment.create!(name: "Cisco Router",        serial_number: "ROU-001", status: "available",   category: networking)
+arduino    = Equipment.create!(name: "Arduino Uno",         serial_number: "ARD-001", status: "maintenance", category: electronics)
+server     = Equipment.create!(name: "Dell Server",         serial_number: "LAP-002", status: "available",   category: computing)
+lens       = Equipment.create!(name: "Camera Lens",         serial_number: "MIC-002", status: "in_use",      category: optics)
+switch     = Equipment.create!(name: "Netgear Switch",      serial_number: "ROU-002", status: "maintenance", category: networking)
+sensor     = Equipment.create!(name: "Temp Sensor",         serial_number: "ARD-002", status: "available",   category: electronics)
+
+MaintenanceRecord.create!(description: "Replaced battery",       performed_at: 2.months.ago,  equipment: laptop)
+MaintenanceRecord.create!(description: "Calibrated lens",        performed_at: 1.month.ago,   equipment: microscope)
+MaintenanceRecord.create!(description: "Firmware update",        performed_at: 3.weeks.ago,   equipment: router)
+MaintenanceRecord.create!(description: "Fixed short circuit",    performed_at: 1.week.ago,    equipment: arduino)
+MaintenanceRecord.create!(description: "Cleaned fan",            performed_at: 2.days.ago,     equipment: server)
+# lens, switch, and sensor have NO maintenance records

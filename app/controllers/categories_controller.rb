@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :update, :destroy]
+  before_action :set_category, only: [ :show, :update, :destroy ]
 
   def index
     categories = Category.order(:name)
@@ -41,7 +41,7 @@ class CategoriesController < ApplicationController
 
   def set_category
     @category = Category.find_by(id: params[:id])
-    return render json: { error: "Category not found" }, status: :not_found if @category.nil?
+    render json: { error: "Category not found" }, status: :not_found if @category.nil?
   end
 
   def category_params

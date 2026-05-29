@@ -1,5 +1,5 @@
 class EquipmentController < ApplicationController
-  before_action :set_equipment, only: [:show, :update, :destroy]
+  before_action :set_equipment, only: [ :show, :update, :destroy ]
 
   def index
     equipment = Equipment.includes(:category).order(:name)
@@ -37,7 +37,7 @@ class EquipmentController < ApplicationController
 
   def set_equipment
     @equipment = Equipment.includes(:category, :maintenance_records).find_by(id: params[:id])
-    return render json: { error: "Equipment not found" }, status: :not_found if @equipment.nil?
+    render json: { error: "Equipment not found" }, status: :not_found if @equipment.nil?
   end
 
   def equipment_params

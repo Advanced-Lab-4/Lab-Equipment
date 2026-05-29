@@ -1,5 +1,5 @@
 class MaintenanceRecordsController < ApplicationController
-  before_action :set_maintenance_record, only: [:show, :update, :destroy]
+  before_action :set_maintenance_record, only: [ :show, :update, :destroy ]
 
   def index
     records = MaintenanceRecord.includes(:equipment).order(performed_at: :desc)
@@ -37,7 +37,7 @@ class MaintenanceRecordsController < ApplicationController
 
   def set_maintenance_record
     @maintenance_record = MaintenanceRecord.includes(:equipment).find_by(id: params[:id])
-    return render json: { error: "Maintenance record not found" }, status: :not_found if @maintenance_record.nil?
+    render json: { error: "Maintenance record not found" }, status: :not_found if @maintenance_record.nil?
   end
 
   def maintenance_record_params

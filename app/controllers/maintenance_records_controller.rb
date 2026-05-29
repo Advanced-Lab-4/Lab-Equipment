@@ -10,3 +10,12 @@ class MaintenanceRecordsController < ApplicationController
   def show
     render json: maintenance_json(@maintenance_record)
   end
+
+  def create
+    record = MaintenanceRecord.new(maintenance_record_params)
+    if record.save
+      render json: maintenance_json(record), status: :created
+    else
+      render json: { errors: record.errors.full_messages }, status: :unprocessable_entity
+    end
+  end

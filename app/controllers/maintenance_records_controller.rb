@@ -19,3 +19,15 @@ class MaintenanceRecordsController < ApplicationController
       render json: { errors: record.errors.full_messages }, status: :unprocessable_entity
     end
   end
+def update
+    if @maintenance_record.update(maintenance_record_params)
+      render json: maintenance_json(@maintenance_record)
+    else
+      render json: { errors: @maintenance_record.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @maintenance_record.destroy
+    head :no_content
+  end

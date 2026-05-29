@@ -1,3 +1,6 @@
+MaintenanceRecord.destroy_all
+Equipment.destroy_all
+Category.destroy_all
 computing   = Category.create!(name: "Computing")
 optics      = Category.create!(name: "Optics")
 networking  = Category.create!(name: "Networking")
